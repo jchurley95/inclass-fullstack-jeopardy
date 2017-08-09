@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Home from './components/Home';
+import Game from './components/Game';
+import AddCategory from './components/AddCategory';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <Router>
+        <div>
+          <div>
+            <Link to='/'>Home</Link> <br />
+            <Link to='/add-categories'>Add Category</Link>
+          </div>
+          <div>
+            <Route exact path='/' components={Home} />
+            <Route path='/add-categories' components={AddCategory} />
+            <Route path='/game/:gameId' components={Game} />
+          </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      </Router>
     );
   }
 }
