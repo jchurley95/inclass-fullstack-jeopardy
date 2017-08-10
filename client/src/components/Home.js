@@ -1,42 +1,41 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Home extends Component {
   constructor(){
     super();
     this.state = {
-      user: "",
-      redirect: false,
       games: []
     }
   }
 
   componentWillMount(){
-    axios.get('localhost:3001/api/game').then(res => {
-      console.log(res.data);
-      this.setState({games: res.data})
+    axios.get("/api/game").then((res) => {
+      this.setState({games: res.data});
     });
   }
 
   render() {
     return (
       <div>
-        <div>
-          <h1>What is your username?</h1>
-          <input type="text" name="user" />
+        <h1>JEOPARDY</h1>
+        <form>
+          <input type="text"/>
           <button>New Game</button>
-        </div>
-        {this.state.games.map((game, i) => (
-          <div key={i}>
-            <Link to={`/game/${game._id}`}>
-              {game.user}'s Game
-            </Link>
-          </div>
-        ))}
+        </form>
+
+        <ul>
+          {this.state.games.map((game, i) => {
+            return (
+              <li key={i}>
+                <Link to={`/game/${game._id}`}> {game.user}'s Game </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
 }
-
 export default Home;
